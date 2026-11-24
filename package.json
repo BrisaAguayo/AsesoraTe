@@ -5,15 +5,20 @@
   "description": "Aplicación web para agendar asesorías entre estudiantes del Instituto Tecnológico de Tijuana",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/lib/*.test.ts",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^6.19.3",
     "@prisma/client": "^6.1.0",
     "bcryptjs": "^3.0.3",
+    "dotenv": "^16.6.1",
     "jose": "^6.2.18",
     "next": "^15.1.0",
     "react": "^19.0.0",
@@ -36,5 +41,8 @@
   "overrides": {
     "effect": "^3.22.5",
     "deepmerge-ts": "^8.0.0"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }

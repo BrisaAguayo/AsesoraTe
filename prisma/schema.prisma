@@ -1,8 +1,10 @@
-// Modelo de datos inicial de AsesoraT
-// Base de datos: PostgreSQL (Supabase)
+// Modelo de datos de AsesoraT
+// Base de datos: PostgreSQL (local en desarrollo, Supabase en producción)
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters", "queryCompiler"]
+  engineType      = "client" // sin motor binario: el cliente usa el adaptador "pg" y funciona en Vercel y en el borde
 }
 
 datasource db {

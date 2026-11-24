@@ -9,7 +9,7 @@ export function FormularioLogin({ destino }: { destino: string }) {
       <input type="hidden" name="destino" value={destino} />
       <label className="text-sm">
         Correo
-        <input type="email" name="correo" required autoComplete="email"
+        <input type="email" name="correo" required autoComplete="email" defaultValue={estado.correo}
           pattern="[^@\s]+@tectijuana\.edu\.mx"
           title="Usa tu correo institucional que termina en @tectijuana.edu.mx"
           placeholder="l00000000@tectijuana.edu.mx"
