@@ -11,10 +11,10 @@ export async function middleware(req: NextRequest) {
   if (sesion) return NextResponse.redirect(new URL("/panel", req.url)); // sesión válida, rol sin permiso
 
   const url = new URL("/login", req.url);
-  url.searchParams.set("siguiente", req.nextUrl.pathname);
+  url.searchParams.set("siguiente", req.nextUrl.pathname + req.nextUrl.search); // conserva, por ejemplo, el horario elegido
   const res = NextResponse.redirect(url);
   res.cookies.delete(COOKIE_SESION); // elimina un token vencido o alterado
   return res;
 }
 
-export const config = { matcher: ["/panel/:path*", "/tutor/:path*", "/mis-asesorias/:path*"] };
+export const config = { matcher: ["/panel/:path*", "/tutor/:path*", "/mis-asesorias/:path*", "/asesorias/agendar"] };

@@ -27,6 +27,7 @@ enum EstadoAsesoria {
   PENDIENTE
   CONFIRMADA
   CANCELADA
+  RECHAZADA
   COMPLETADA
 }
 
@@ -98,8 +99,12 @@ model Asesoria {
   materia    Materia     @relation(fields: [materiaId], references: [id])
   evaluacion Evaluacion?
 
-  // Un tutor no puede tener dos asesorías en el mismo horario (RF-06)
-  @@unique([tutorId, fecha, horaInicio])
+  @@index([tutorId, fecha])
+  @@index([estudianteId, fecha])
+  // RF-06: un tutor (o un estudiante) no puede tener dos asesorías activas en el mismo horario.
+  // Se garantiza con índices únicos parciales que ignoran las canceladas y rechazadas, para que
+  // el horario vuelva a quedar libre; Prisma no los expresa en el esquema y se crean en la
+  // migración 20261124120000_agenda. Al generar migraciones nuevas, conservarlos.
 }
 
 model Evaluacion {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { dias, nombreModalidad } from "@/lib/formato";
 import type { Modalidad } from "@/lib/asesorias";
 
@@ -23,10 +24,10 @@ export function TarjetaAsesoria({ bloque }: { bloque: BloqueDisponible }) {
       <p className="text-sm text-slate-500">Tutor de {bloque.semestreTutor}.º semestre</p>
       <p className="text-sm">{dias[bloque.diaSemana]} · {bloque.horaInicio} - {bloque.horaFin}</p>
       <p className="text-sm text-slate-500">{nombreModalidad[bloque.modalidad]}{bloque.lugar ? `, ${bloque.lugar}` : ""}</p>
-      <button disabled title="Agendar estará disponible en el siguiente sprint"
-        className="mt-2 cursor-not-allowed rounded bg-marca px-3 py-2 text-sm font-medium text-white opacity-60">
-        Agendar (próximamente)
-      </button>
+      <Link href={`/asesorias/agendar?bloque=${bloque.disponibilidadId}&materia=${bloque.materiaId}`}
+        className="mt-2 rounded bg-marca px-3 py-2 text-center text-sm font-medium text-white hover:opacity-90">
+        Agendar
+      </Link>
     </article>
   );
 }

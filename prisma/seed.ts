@@ -92,7 +92,7 @@ async function main() {
     },
   });
 
-  // Asesorías de ejemplo para la pantalla "Mis asesorías"
+  // Asesorías pasadas de ejemplo para el historial de "Mis asesorías"
   const andrea = await prisma.usuario.findUniqueOrThrow({ where: { correo: "tutora.demo@tectijuana.edu.mx" } });
   const diego = await prisma.usuario.findUniqueOrThrow({ where: { correo: "diego.demo@tectijuana.edu.mx" } });
   const integral = await prisma.materia.findUniqueOrThrow({ where: { clave: "ACF-0902" } });
@@ -103,7 +103,7 @@ async function main() {
       {
         estudianteId: estudiante.id, tutorId: andrea.id, materiaId: integral.id, fecha: new Date("2026-11-09"),
         horaInicio: "13:00", horaFin: "14:00", modalidad: "PRESENCIAL", lugar: "Edificio J, aula 5",
-        tema: "Integración por partes", estado: "CONFIRMADA",
+        tema: "Integración por partes", estado: "COMPLETADA",
       },
       {
         estudianteId: estudiante.id, tutorId: diego.id, materiaId: estructuras.id, fecha: new Date("2026-11-03"),
