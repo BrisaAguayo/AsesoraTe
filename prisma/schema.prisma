@@ -1,5 +1,5 @@
 // Modelo de datos inicial de AsesoraT
-// Base de datos: PostgreSQL (Neon)
+// Base de datos: PostgreSQL (Supabase)
 
 generator client {
   provider = "prisma-client-js"

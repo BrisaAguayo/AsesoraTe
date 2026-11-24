@@ -22,7 +22,8 @@ async function main() {
       carrera: "Ingeniería en Sistemas Computacionales",
       semestre: 8,
       rol: "TUTOR",
-      passwordHash: "pendiente-sprint-2",
+      // Hash bcrypt (costo 12) de la contraseña de demostración; nunca se guarda la contraseña en texto plano
+      passwordHash: "$2b$12$sMGV01qgHdrayefeVU.Dye7GS9NQWMikk4KsjJU/qlOADNyPhwolG",
     },
   });
 
