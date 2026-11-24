@@ -1,6 +1,7 @@
-import { misAsesorias } from "@/lib/datos-ejemplo";
+import { misAsesorias, type EstadoAsesoria } from "@/lib/datos-ejemplo";
 
-const colorEstado: Record<string, string> = {
+// Record con el tipo del estado: si se agrega un estado nuevo, TypeScript obliga a darle color
+const colorEstado: Record<EstadoAsesoria, string> = {
   Confirmada: "bg-emerald-100 text-emerald-800",
   Pendiente: "bg-amber-100 text-amber-800",
   Completada: "bg-slate-200 text-slate-700",

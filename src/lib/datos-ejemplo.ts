@@ -1,6 +1,10 @@
 // Datos de ejemplo para las pantallas iniciales, mientras se conecta la base de datos.
 
-export type Modalidad = "Presencial" | "Virtual";
+export const MODALIDADES = ["Presencial", "Virtual"] as const;
+export type Modalidad = (typeof MODALIDADES)[number];
+
+export const ESTADOS_ASESORIA = ["Pendiente", "Confirmada", "Completada"] as const;
+export type EstadoAsesoria = (typeof ESTADOS_ASESORIA)[number];
 
 export interface BloqueDisponible {
   id: string;
@@ -30,8 +34,17 @@ export const bloquesDisponibles: BloqueDisponible[] = [
   { id: "b5", tutor: "Luis Hernández", semestreTutor: 7, materia: "Programación Orientada a Objetos", dia: "Viernes", horario: "11:00 - 12:00", modalidad: "Presencial", lugar: "Laboratorio de cómputo 3" },
 ];
 
-export const misAsesorias = [
+export interface AsesoriaAgendada {
+  id: string;
+  materia: string;
+  tutor: string;
+  fecha: string;
+  horario: string;
+  estado: EstadoAsesoria;
+}
+
+export const misAsesorias: AsesoriaAgendada[] = [
   { id: "a1", materia: "Cálculo Integral", tutor: "Andrea López", fecha: "Lun 19 oct", horario: "13:00 - 14:00", estado: "Confirmada" },
   { id: "a2", materia: "Estructura de Datos", tutor: "Diego Ramírez", fecha: "Mar 20 oct", horario: "16:00 - 17:00", estado: "Pendiente" },
   { id: "a3", materia: "Fundamentos de Programación", tutor: "Luis Hernández", fecha: "Vie 9 oct", horario: "11:00 - 12:00", estado: "Completada" },
-] as const;
+];
