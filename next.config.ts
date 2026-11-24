@@ -28,6 +28,9 @@ const encabezadosSeguridad = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false, // no revela que el servidor usa Next.js
+  // El cliente de Prisma lee su compilador de consultas (.wasm) con fs en tiempo de ejecución;
+  // el rastreo de archivos de Next.js no lo detecta, así que se incluye explícitamente en las funciones de Vercel
+  outputFileTracingIncludes: { "/**": ["./node_modules/.prisma/client/*.wasm"] },
   async headers() {
     return [{ source: "/:path*", headers: encabezadosSeguridad }];
   },
