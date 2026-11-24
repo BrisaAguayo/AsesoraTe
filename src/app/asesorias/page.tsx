@@ -17,7 +17,9 @@ export default async function BuscarAsesorias({ searchParams }: Props) {
         <p className="text-slate-500">Filtra por materia y elige un horario disponible.</p>
       </div>
 
-      <form method="get" className="flex flex-wrap items-end gap-3">
+      {/* key: al cambiar los filtros (por ejemplo con "Limpiar") el formulario se vuelve a montar
+          y los selectores toman el valor de la URL en lugar de conservar el anterior */}
+      <form key={`${filtros.materia ?? ""}|${filtros.modalidad ?? ""}`} method="get" className="flex flex-wrap items-end gap-3">
         <label className="flex flex-col gap-1 text-sm font-medium">
           Materia
           <select name="materia" defaultValue={filtros.materia ?? ""}
