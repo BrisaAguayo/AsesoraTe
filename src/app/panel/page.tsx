@@ -9,15 +9,16 @@ type Opcion = { titulo: string; descripcion: string; href?: string; proximamente
 const opcionesPorRol: Record<string, Opcion[]> = {
   ESTUDIANTE: [
     { titulo: "Buscar asesorías", descripcion: "Encuentra tutores por materia, día y modalidad.", href: "/asesorias" },
-    { titulo: "Mis asesorías", descripcion: "Consulta tus asesorías y su estado.", href: "/mis-asesorias" },
+    { titulo: "Mis asesorías", descripcion: "Consulta, cancela y revisa el historial de tus asesorías.", href: "/mis-asesorias" },
   ],
   TUTOR: [
     { titulo: "Mis materias", descripcion: "Elige las materias que puedes asesorar.", href: "/tutor/materias" },
     { titulo: "Mi disponibilidad", descripcion: "Registra tus horarios semanales.", href: "/tutor/disponibilidad" },
     { titulo: "Solicitudes", descripcion: "Confirma o rechaza asesorías.", href: "/tutor/solicitudes" },
+    { titulo: "Mis asesorías", descripcion: "Tus próximas asesorías y el historial de las que impartiste.", href: "/mis-asesorias" },
   ],
   COORDINADOR: [
-    { titulo: "Reporte de horas", descripcion: "Asesorías y horas por tutor.", proximamente: "Sprint 5" },
+    { titulo: "Reporte de horas", descripcion: "Asesorías y horas por tutor.", proximamente: "la versión 1.1" },
   ],
 };
 
@@ -44,7 +45,7 @@ export default async function Panel() {
             <div key={o.titulo} className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-5">
               <h2 className="font-semibold text-slate-500">{o.titulo}</h2>
               <p className="mt-1 text-sm text-slate-400">{o.descripcion}</p>
-              <p className="mt-3 text-xs font-medium text-slate-400">Disponible en el {o.proximamente}</p>
+              <p className="mt-3 text-xs font-medium text-slate-400">Disponible en {o.proximamente}</p>
             </div>
           ),
         )}
