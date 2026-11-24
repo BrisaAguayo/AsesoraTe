@@ -6,7 +6,7 @@ El tablero Kanban se lleva en **GitHub Projects** con las columnas: Por hacer ·
 | Sprint | Semanas | Objetivo | Elementos | Estado |
 |---|---|---|---|---|
 | 1 | 1 a 2 | Planeación y bases del proyecto | Plan de calidad, requerimientos, historias de usuario, diagramas, estructura del repositorio, modelo de datos inicial, pantallas iniciales | ✅ Terminado |
-| 2 | 3 a 4 | Acceso y perfil de tutor | HU-01, HU-02, conexión a base de datos en Neon | ⏳ Siguiente |
+| 2 | 3 a 4 | Acceso y perfil de tutor | HU-01, HU-02, conexión a la base de datos | ⏳ Siguiente |
 | 3 | 5 a 6 | Disponibilidad y búsqueda | HU-03, HU-04 | Pendiente |
 | 4 | 7 a 8 | Agendar asesorías | HU-05, HU-06 | Pendiente |
 | 5 | 9 a 10 | Cancelación, avisos e historial | HU-07, HU-08, HU-09 | Pendiente |
@@ -29,3 +29,19 @@ El tablero Kanban se lleva en **GitHub Projects** con las columnas: Por hacer ·
 | 9 | HU-09 | Historial de asesorías | Media | 3 | 5 |
 | 10 | HU-11 | Reporte de horas para coordinación | Media | 5 | 6 |
 | 11 | HU-10 | Calificar asesoría | Baja | 3 | 6 |
+
+## Estado de la versión 1.0.0 (24 nov 2026)
+
+| ID | Elemento | Estado |
+|---|---|---|
+| HU-01 | Registro e inicio de sesión con correo institucional | ✅ Terminado |
+| HU-02 | Tutor registra sus materias | ✅ Terminado |
+| HU-03 | Tutor registra su disponibilidad | ✅ Terminado |
+| HU-04 | Búsqueda de asesorías con filtros | ✅ Terminado |
+| HU-05 | Agendar asesoría sin empalmes | ✅ Terminado |
+| HU-06 | Confirmar o rechazar solicitudes | ✅ Terminado |
+| HU-07 | Cancelar asesoría | ✅ Terminado |
+| HU-09 | Historial de asesorías | ✅ Terminado |
+| HU-08 | Avisos por correo | Versión 1.1 |
+| HU-10 | Calificar asesoría | Versión 1.1 |
+| HU-11 | Reporte de horas para coordinación | Versión 1.1 |

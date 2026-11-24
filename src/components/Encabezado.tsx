@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { obtenerSesion } from "@/lib/sesion-servidor";
 import { cerrarSesion } from "@/app/login/acciones";
+import { EnlaceMenu } from "@/components/EnlaceMenu";
 
 export async function Encabezado() {
   const sesion = await obtenerSesion();
@@ -12,11 +13,11 @@ export async function Encabezado() {
           Asesora<span className="text-emerald-300">T</span>
         </Link>
         <div className="flex items-center gap-3 whitespace-nowrap text-sm">
-          <Link href="/asesorias" className="hover:underline">Buscar</Link>
+          <EnlaceMenu href="/asesorias">Buscar</EnlaceMenu>
           {sesion ? (
             <>
-              <Link href="/mis-asesorias" className="hover:underline">Mis asesorías</Link>
-              <Link href="/panel" className="hidden hover:underline sm:inline">{sesion.nombre.split(" ")[0]}</Link>
+              <EnlaceMenu href="/mis-asesorias">Mis asesorías</EnlaceMenu>
+              <EnlaceMenu href="/panel" className="hidden sm:inline">{sesion.nombre.split(" ")[0]}</EnlaceMenu>
               <form action={cerrarSesion}>
                 <button type="submit" className="rounded bg-white/15 px-3 py-1 hover:bg-white/25">Salir</button>
               </form>

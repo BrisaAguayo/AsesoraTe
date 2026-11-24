@@ -2,67 +2,84 @@
 
 Aplicación web para consultar y agendar asesorías académicas entre estudiantes del Instituto Tecnológico de Tijuana. Los alumnos con dificultades en una materia encuentran a un tutor de semestres avanzados, ven su disponibilidad y reservan un horario sin depender de grupos de WhatsApp o carteles.
 
-> Proyecto integrador: Gestión de Proyectos de Software, semestre Ago-Dic 2026.
-> Integrante: Brisa Julianna Aguayo Virgen (22211514).
+> Proyecto integrador: Temas Avanzados de Software en la Nube, semestre Ago-Dic 2026.
+> Equipo: Rodrigo Andrés Rivera García (Product Owner), Brisa Julianna Aguayo Virgen (Scrum Master y QA), José Juárez Castelán (Developer).
+
+**Producción:** https://asesora-te.vercel.app
 
 ## Estado actual
 
-**Etapa I - Gestión de calidad.** Se tiene la estructura base del proyecto, el modelo de datos inicial (Prisma), las pantallas iniciales de la interfaz y la documentación de planeación en `docs/`.
+**Versión 1.0.0.** Funciona el flujo completo: registro, búsqueda, agendado sin empalmes, confirmación del tutor, cancelación e historial, con los datos en PostgreSQL (Supabase).
 
-| Módulo | Estado |
+| Historia de usuario | Estado |
 |---|---|
-| Estructura del proyecto (Next.js + TS + Tailwind) | ✅ Listo |
-| Modelo de datos (Prisma / PostgreSQL) | ✅ Versión inicial |
-| Pantallas iniciales (inicio, login, buscar asesorías, mis asesorías) | 🟡 Interfaz con datos de ejemplo |
-| Autenticación con correo institucional | ⏳ Sprint 2 |
-| Agendar / confirmar / cancelar asesorías | ⏳ Sprints 3 a 4 |
-| Notificaciones por correo | ⏳ Sprint 5 |
-| Reportes para coordinación | ⏳ Sprint 6 |
+| HU-01 Registro e inicio de sesión con correo institucional | ✅ Lista |
+| HU-02 El tutor elige las materias que asesora | ✅ Lista |
+| HU-03 El tutor registra, edita y elimina su disponibilidad | ✅ Lista |
+| HU-04 Búsqueda por materia, día y modalidad | ✅ Lista |
+| HU-05 Agendar una asesoría sin empalmes | ✅ Lista |
+| HU-06 El tutor confirma o rechaza solicitudes | ✅ Lista |
+| HU-07 Cancelar hasta 2 horas antes | ✅ Lista |
+| HU-09 Historial de asesorías | ✅ Lista |
+| HU-08 Avisos por correo | Versión 1.1 |
+| HU-10 Calificar la asesoría | Versión 1.1 |
+| HU-11 Reporte de horas para coordinación | Versión 1.1 |
 
 ## Tecnologías
 
-- **Next.js 15** (App Router) + **React 19** + **TypeScript**
+- **Next.js 15** (App Router, Server Actions y Edge Middleware) + **React 19** + **TypeScript**
 - **Tailwind CSS** para estilos
-- **PostgreSQL** (Neon) + **Prisma ORM**
-- **NextAuth.js** para autenticación y **Resend** para avisos por correo (planeados)
-- **Vercel** para despliegue
-- **GitHub Projects** (tablero Kanban) e **Issues** para backlog y control de cambios
+- **PostgreSQL en Supabase** + **Prisma ORM** con el adaptador `pg` (sin motor binario)
+- **Autenticación propia:** contraseñas con **bcrypt** (costo 12) y sesión con **JWT** firmado (`jose`, HS256) en una cookie `httpOnly`, `secure` y `sameSite=lax`
+- **Vercel** para el despliegue (frontend y backend) y **Supabase** para la base de datos
+
+## Seguridad
+
+- Validación de todos los datos en el servidor, aunque el navegador ya los valide.
+- Límite de 5 intentos fallidos de inicio de sesión en 15 minutos.
+- Rutas privadas protegidas en el Edge Middleware y verificadas otra vez en cada página.
+- Cabeceras HSTS, CSP, `X-Frame-Options`, `nosniff`, `Referrer-Policy` y `Permissions-Policy`.
+- Los secretos (`DATABASE_URL`, `JWT_SECRET`) solo viven en variables de entorno.
 
 ## Estructura de carpetas
 
 ```
-asesorat/
-├── docs/                    # Documentación del proyecto
-│   ├── plan-de-calidad.md   # Resumen del Plan de Calidad
-│   ├── requerimientos.md    # RF y RNF con su identificador
-│   ├── historias-de-usuario.md
-│   ├── backlog.md
-│   ├── diagramas/           # Casos de uso, flujo, modelo de BD (Mermaid)
-│   └── bitacora-cambios.md  # Registro de solicitudes de cambio
+asesorate/
+├── docs/                    # Requerimientos, historias de usuario, backlog y diagramas
 ├── prisma/
 │   ├── schema.prisma        # Modelo de datos
-│   └── seed.ts              # Datos de ejemplo
+│   ├── migrations/          # Migraciones de la base de datos
+│   └── seed.ts              # Datos de prueba
 ├── src/
-│   ├── app/                 # Rutas (App Router)
+│   ├── app/                 # Rutas (App Router) y Server Actions
 │   ├── components/          # Componentes reutilizables
-│   └── lib/                 # Cliente de Prisma, utilidades, validaciones
-├── .github/                 # Plantillas de issues y pull requests
-├── CHANGELOG.md
-└── CONTRIBUTING.md          # Flujo de trabajo y control de cambios
+│   ├── lib/                 # Reglas de negocio, sesión, validaciones y pruebas unitarias
+│   └── middleware.ts        # Protección de rutas en el borde
+└── CHANGELOG.md
 ```
 
 ## Cómo correrlo
 
 ```bash
 npm install
-cp .env.example .env        # agrega tu DATABASE_URL de Neon
-npx prisma migrate dev --name init
-npm run db:seed
+cp .env.example .env         # DATABASE_URL de tu PostgreSQL local y JWT_SECRET
+npx prisma migrate deploy    # crea las tablas
+npm run db:seed              # materias, tutores y usuarios de prueba
 npm run dev
 ```
 
-Abrir http://localhost:3000
+Abrir http://localhost:3000. Pruebas unitarias: `npm test`.
+
+### Cuentas de prueba
+
+Todas usan la contraseña `Tutorias2026!`.
+
+| Rol | Correo |
+|---|---|
+| Estudiante | `alumno.demo@tectijuana.edu.mx` |
+| Tutora | `tutora.demo@tectijuana.edu.mx` |
+| Coordinación | `coordinacion.demo@tectijuana.edu.mx` |
 
 ## Flujo de trabajo
 
-Ver [CONTRIBUTING.md](CONTRIBUTING.md): ramas `feature/*`, commits con formato *Conventional Commits*, pull request hacia `main` y registro de cambios en [docs/bitacora-cambios.md](docs/bitacora-cambios.md).
+Ver [CONTRIBUTING.md](CONTRIBUTING.md): commits con formato *Conventional Commits*, pull request hacia `main` y registro de cambios en [docs/bitacora-cambios.md](docs/bitacora-cambios.md).
